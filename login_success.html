@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="color: green;">Welcome, {{ user[1] }}!</h2>
+<p>LOGIN SUCCESSFUL</p>
+
+<h3>User Details</h3>
+<ul>
+    <li><strong>ID:</strong> {{ user[0] }}</li>
+    <li><strong>Username:</strong> {{ user[1] }}</li>
+    <li><strong>Is Admin:</strong> {% if user[3] == 1 %}Yes{% else %}No{% endif %}</li>
+    <li><strong>Secret Data (Password):</strong> {{ user[2] }}</li>
+</ul>
+
+<div style="margin-top: 20px; border: 1px dashed gray; padding: 10px;">
+    <strong>Injection Query:</strong><br>
+    <code>{{ query }}</code>
+</div>
+
+<p><a href="/">← Back to Dashboard</a></p>
+{% endblock %}

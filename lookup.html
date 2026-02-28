@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>User Lookup Service (Blind SQLi)</h2>
+<p>Check if a username is taken. The system only responds with "Exists" or "Not Found".</p>
+
+<div style="margin-top: 20px; border: 1px dashed gray; padding: 10px;">
+    <strong>Hint:</strong><br>
+    <code>SELECT id FROM users WHERE username = '{input}'</code>
+</div>
+
+<div>
+    <label for="username">Check Username:</label>
+    <input type="text" id="username" placeholder="e.g. admin">
+    <button type="button" onclick="checkUser()">Check</button>
+</div>
+
+<div id="result" style="margin-top: 20px; font-weight: bold;"></div>
+
+
+<p><a href="/">← Back to Dashboard</a></p>
+
+<script>
+    async function checkUser() {
+        const input = document.getElementById('username');
+        const resultBox = document.getElementById('result');
+        const formData = new FormData();
+        formData.append('username', input.value);
+
+        resultBox.textContent = 'Checking...';
+
+        try {
+            const response = await fetch('/api/check_user', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            if (data.exists) {
+                resultBox.textContent = '✔ ' + data.message;
+                resultBox.style.color = 'green';
+            } else {
+                resultBox.textContent = '✘ ' + data.message;
+                resultBox.style.color = 'red';
+            }
+        } catch (e) {
+            resultBox.textContent = 'Error contacting server';
+        }
+    }
+</script>
+{% endblock %}

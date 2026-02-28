@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SQL Injection Demo{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/products">Products</a></li>
+                <li><a href="/check_user">Lookup</a></li>
+
+            </ul>
+            <hr>
+        </nav>
+        <div>
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>

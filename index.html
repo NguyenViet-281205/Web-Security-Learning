@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>SQL Injection Demo</h1>
+
+<hr>
+
+<div>
+    <h2>Scenario 1: Authentication Bypass</h2>
+    <p>Can you login as admin without knowing the password?</p>
+    <a href="/login"><button>Go to Login Page</button></a>
+</div>
+
+<hr>
+
+<div>
+    <h2>Scenario 2: Union-Based Inspection</h2>
+    <p>A product category page.</p>
+    <a href="/products"><button>Go to Product Category</button></a>
+</div>
+
+<hr>
+
+<div>
+    <h2>Scenario 3: Blind SQL Injection</h2>
+    <p>The application only returns "Exists" or "Not Found". Can you still extract data?</p>
+    <a href="/check_user"><button>Go to User Lookup</button></a>
+</div>
+
+
+<hr>
+{% endblock %}
