@@ -1,5 +1,6 @@
 import sqlite3
 from flask import Flask, request, g, render_template, jsonify
+import traceback
 
 app = Flask(__name__)
 
@@ -60,7 +61,8 @@ def products():
         cursor.execute(query)
         products = cursor.fetchall()
     except Exception as e:
-        error = str(e)
+        full_traceback = traceback.format_exc().splitlines()
+        error = full_traceback
         
     return render_template('products.html', products=products, category=category, error=error, query=query)
 @app.route('/check_user')
@@ -82,8 +84,9 @@ def api_check_user():
             return jsonify({"exists": True, "message": "User exists!"})
         else:
             return jsonify({"exists": False, "message": "User not found."})
-    except:
-        return jsonify({"exists": False, "message": "User not found (or error)."})
+    except Exception as e:
+        full_traceback = traceback.format_exc().splitlines()
+        return jsonify({"exists": False, "message": full_traceback})
 
 if __name__ == '__main__':
     print("Running on http://127.0.0.1:5000")
