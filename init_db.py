@@ -115,9 +115,7 @@ def init_db():
             ('Mattel Board Game Classic', 'Toys', 'High quality board game for your daily needs.', 199.99, 2023, 'Cardboard', 10, 'Mattel', 0),
         ]
         cursor.executemany("INSERT INTO products (name, category, description, price, production_year, material, stock_quantity, manufacturer, warranty_months) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", products)
-        cursor.execute("DROP TABLE IF EXISTS feedback")
-        cursor.execute("CREATE TABLE feedback (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)")
-        
+
         db.commit()
         cursor.close()
 
