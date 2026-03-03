@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, request, g, render_template, redirect, url_for, jsonify
+from flask import Flask, request, g, render_template, jsonify
 
 app = Flask(__name__)
 
@@ -88,3 +88,4 @@ def api_check_user():
 if __name__ == '__main__':
     print("Running on http://127.0.0.1:5000")
     app.run(debug=True)
+
