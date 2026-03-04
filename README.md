@@ -1,30 +1,20 @@
 ```mermaid
 flowchart LR
-    %% Định nghĩa các Style 
-    classDef admin fill:#333,color:#fff,stroke:#000,stroke-width:2px;
-    classDef node fill:#fff,stroke:#4CAF50,stroke-width:2px;
-    classDef server fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef db fill:#eee,stroke:#000,stroke-width:2px;
+    %% Định nghĩa các Style
+    classDef tester fill:#ffcccc,stroke:#cc0000,stroke-width:2px,border-radius:5px;
+    classDef environment fill:#f9f9f9,stroke:#333,stroke-width:2px,border-radius:10px,stroke-dasharray: 5 5;
+    classDef app fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px,border-radius:10px;
+    classDef db fill:#eee,stroke:#000,stroke-width:2px,border-radius:10px;
 
-    %% Node Admin nằm ngoài subnet ảo (thường là máy Host)
-    Admin(Node Admin<br/>Máy Host) 
+    Tester(fa:fa-user-secret Người kiểm thử / Attacker<br/>Máy Host):::tester
 
-    subgraph LAN [Mạng LAN ảo Docker / VMware - Subnet: 192.168.100.0/24]
+    subgraph Env [Môi trường thực thi Local / Docker Container]
         direction TB
+        WebApp(fa:fa-server Web Server<br/>Vulnerable Flask App<br/>Port 5000):::app
+        Database(fa:fa-database Database<br/>SQLite - file: database.db):::db
         
-        Client(Node Client<br/>Attacker / User<br/>IP: 192.168.100.17):::node
-        
-        WebServer(Node Web Server<br/>Vulnerable Flask App<br/>IP: 192.168.100.16):::server
-        
-        Database(Node Database<br/>PostgreSQL / SQLite<br/>IP: 192.168.100.18):::db
+        WebApp -- "Đọc/Ghi dữ liệu" --- Database
     end
 
-    %% Các luồng dữ liệu 
-    Client -- "Truy cập / Khai thác lỗi bảo mật (HTTP Port 5000)" ---> WebServer
-    Admin -- "Quản trị / Kiểm thử Web (HTTP Port 5000)" ---> WebServer
-    Admin -- "Truy vấn CSDL (TCP Port 3306/5432 qua DBeaver)" ---> Database
-    WebServer -- "Truy vấn & Phản hồi dữ liệu (SQL)" ---> Database
-
-    %% Gán class cho Admin
-    class Admin admin
+    Tester -- "Truy cập & Khai thác lỗi (HTTP Port 5000)" ---> WebApp
 ```
