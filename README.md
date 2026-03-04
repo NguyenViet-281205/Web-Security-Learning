@@ -6,7 +6,7 @@ flowchart LR
     classDef app fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px,border-radius:10px;
     classDef db fill:#eee,stroke:#000,stroke-width:2px,border-radius:10px;
 
-    Tester(fa:fa-user-secret Attacker<br/>Sử dụng: Burp Suite, SQLMap)<br/>:::tester
+    Tester(fa:fa-user-secret Attacker<br/>Sử dụng: Burp Suite, SQLMap):::tester
 
     subgraph Env [Môi trường thực thi Local / Docker Container]
         direction TB
