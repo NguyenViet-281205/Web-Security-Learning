@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
     %% Định nghĩa các Style
     classDef tester fill:#ffcccc,stroke:#cc0000,stroke-width:2px,border-radius:5px;
@@ -16,3 +17,4 @@ flowchart LR
     end
 
     Tester -- "Truy cập & Khai thác lỗi<br/>(Gửi HTTP Request chứa Payload qua Port 5000)" ---> WebApp
+```
