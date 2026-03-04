@@ -1,4 +1,3 @@
-```mermaid
 flowchart LR
     %% Định nghĩa các Style
     classDef tester fill:#ffcccc,stroke:#cc0000,stroke-width:2px,border-radius:5px;
@@ -6,15 +5,14 @@ flowchart LR
     classDef app fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px,border-radius:10px;
     classDef db fill:#eee,stroke:#000,stroke-width:2px,border-radius:10px;
 
-    Tester(fa:fa-user-secret Người kiểm thử / Attacker<br/>Máy Host):::tester
+    Tester(fa:fa-user-secret Attacker<br/>Sử dụng: Burp Suite, SQLMap)<br/>:::tester
 
     subgraph Env [Môi trường thực thi Local / Docker Container]
         direction TB
         WebApp(fa:fa-server Web Server<br/>Vulnerable Flask App<br/>Port 5000):::app
         Database(fa:fa-database Database<br/>SQLite - file: database.db):::db
         
-        WebApp -- "Đọc/Ghi dữ liệu" --- Database
+        WebApp <-->|"Thực thi truy vấn (SQL Query)<br/>Trả về kết quả (Result)"| Database
     end
 
-    Tester -- "Truy cập & Khai thác lỗi (HTTP Port 5000)" ---> WebApp
-```
+    Tester -- "Truy cập & Khai thác lỗi<br/>(Gửi HTTP Request chứa Payload qua Port 5000)" ---> WebApp
