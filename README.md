@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
     %% Định nghĩa các Style 
     classDef admin fill:#333,color:#fff,stroke:#000,stroke-width:2px;
@@ -26,3 +27,4 @@ flowchart LR
 
     %% Gán class cho Admin
     class Admin admin
+```
