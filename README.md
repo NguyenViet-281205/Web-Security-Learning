@@ -13,24 +13,14 @@
     git clone https://github.com/NguyenViet-281205/Web-Security-Learning.git
     ```
 
-### Bước 2: Khởi tạo môi trường ảo (Virtual Environment)
-Trong lập trình Python, việc cài đặt thư viện trực tiếp vào môi trường gốc rất dễ gây xung đột (conflict) giữa các dự án. Do đó, ta cần sử dụng môi trường ảo để cô lập các gói phụ thuộc.
-*   Mở Terminal (Command Prompt hoặc PowerShell) trỏ vào thư mục gốc của dự án vừa tải về, chạy lệnh sau để tạo môi trường ảo:
-    ```bash
-    python -m venv venv
-    ```
-*   Kích hoạt môi trường ảo: 
-    *   Trên **Windows**: `venv\Scripts\activate`
-    *   Trên **macOS/Linux**: `source venv/bin/activate`
-
-### Bước 3: Cài đặt các thư viện phụ thuộc
+### Bước 2: Cài đặt các thư viện phụ thuộc
 File `requirements.txt` trong dự án đã cấu trúc sẵn danh sách các gói cần thiết. Việc cập nhật các gói này diễn ra hoàn toàn tự động.
 *   Chạy công cụ pip (Package Installer for Python) để kết nối tới PyPI và tải các thư viện vào môi trường ảo hiện tại của dự án:
     ```bash
     pip install -r requirements.txt
     ```
 
-### Bước 4: Khởi tạo Database ban đầu (Database Initialization)
+### Bước 3: Khởi tạo Database ban đầu (Database Initialization)
 Dự án sử dụng cơ sở dữ liệu SQLite gọn nhẹ. Các bạn không cần thiết lập máy chủ phức tạp (hay cấu hình user/password), kịch bản `init_db.py` sẽ thực thi mọi công việc bao gồm việc tái tạo bảng và chèn sẵn dữ liệu mẫu (hơn 100 sản phẩm đa đạng ngành hàng: điện tử, phần cứng, đồ gia dụng...).
 *   Chạy lệnh nạp cơ sở dữ liệu:
     ```bash
@@ -38,7 +28,7 @@ Dự án sử dụng cơ sở dữ liệu SQLite gọn nhẹ. Các bạn không 
     ```
 *   *Kết quả thành công:* Màn hình sẽ hiển thị thông báo hoàn tất, kèm theo đó là một file `database.db` tự động được sinh ra trong cùng thư mục dự án.
 
-### Bước 5: Kích hoạt máy chủ và thử nghiệm hệ thống
+### Bước 4: Kích hoạt máy chủ và thử nghiệm hệ thống
 Để khởi động hệ thống web framework (Flask), ta gọi file mã nguồn trung tâm.
 *   Chạy lệnh khởi động ứng dụng:
     ```bash
