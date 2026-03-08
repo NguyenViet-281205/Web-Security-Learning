@@ -1,20 +1,51 @@
-```mermaid
-flowchart LR
-    %% Định nghĩa các Style
-    classDef tester fill:#ffcccc,stroke:#cc0000,stroke-width:2px,border-radius:5px;
-    classDef environment fill:#f9f9f9,stroke:#333,stroke-width:2px,border-radius:10px,stroke-dasharray: 5 5;
-    classDef app fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px,border-radius:10px;
-    classDef db fill:#eee,stroke:#000,stroke-width:2px,border-radius:10px;
+## Hướng dẫn cài đặt và vận hành hệ thống
 
-    Tester(fa:fa-user-secret Attacker<br/>Sử dụng: Burp Suite, SQLMap):::tester
+### Bước 1: Cài đặt môi trường cốt lõi và tải mã nguồn
+*   Truy cập trang chủ [Python.org](https://www.python.org/downloads/), tải và cài đặt Python 3 (khuyến nghị từ bản 3.8 đến 3.12). 
+    > **Lưu ý quan trọng:** Trong quá trình cài đặt trên Windows, bắt buộc phải đánh dấu vào hộp kiểm **"Add Python to PATH"** để hệ điều hành có thể nhận diện lệnh `python` trên Terminal.
+*   Mở Terminal/Command Prompt và kiểm tra lại phiên bản bằng lệnh:
+    ```bash
+    python --version
+    ```
+*   Bổ sung: Tải phần mềm soạn thảo mã nguồn VS Code tại: [Visual Studio Code](https://code.visualstudio.com/download)
+*   Sử dụng lệnh `git clone` hoặc tải trực tiếp mã nguồn dự án về máy:
+    ```bash
+    git clone https://github.com/NguyenViet-281205/Web-Security-Learning.git
+    ```
 
-    subgraph Env [Môi trường thực thi Local / Docker Container]
-        direction TB
-        WebApp(fa:fa-server Web Server<br/>Vulnerable Flask App<br/>Port 5000):::app
-        Database(fa:fa-database Database<br/>SQLite - file: database.db):::db
-        
-        WebApp <-->|"Thực thi truy vấn (SQL Query)<br/>Trả về kết quả (Result)"| Database
-    end
+### Bước 2: Khởi tạo môi trường ảo (Virtual Environment)
+Trong lập trình Python, việc cài đặt thư viện trực tiếp vào môi trường gốc rất dễ gây xung đột (conflict) giữa các dự án. Do đó, ta cần sử dụng môi trường ảo để cô lập các gói phụ thuộc.
+*   Mở Terminal (Command Prompt hoặc PowerShell) trỏ vào thư mục gốc của dự án vừa tải về, chạy lệnh sau để tạo môi trường ảo:
+    ```bash
+    python -m venv venv
+    ```
+*   Kích hoạt môi trường ảo: 
+    *   Trên **Windows**: `venv\Scripts\activate`
+    *   Trên **macOS/Linux**: `source venv/bin/activate`
 
-    Tester -- "Truy cập & Khai thác lỗi<br/>(Gửi HTTP Request chứa Payload qua Port 5000)" ---> WebApp
-```
+### Bước 3: Cài đặt các thư viện phụ thuộc
+File `requirements.txt` trong dự án đã cấu trúc sẵn danh sách các gói cần thiết. Việc cập nhật các gói này diễn ra hoàn toàn tự động.
+*   Chạy công cụ pip (Package Installer for Python) để kết nối tới PyPI và tải các thư viện vào môi trường ảo hiện tại của dự án:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Bước 4: Khởi tạo Database ban đầu (Database Initialization)
+Dự án sử dụng cơ sở dữ liệu SQLite gọn nhẹ. Các bạn không cần thiết lập máy chủ phức tạp (hay cấu hình user/password), kịch bản `init_db.py` sẽ thực thi mọi công việc bao gồm việc tái tạo bảng và chèn sẵn dữ liệu mẫu (hơn 100 sản phẩm đa đạng ngành hàng: điện tử, phần cứng, đồ gia dụng...).
+*   Chạy lệnh nạp cơ sở dữ liệu:
+    ```bash
+    python init_db.py
+    ```
+*   *Kết quả thành công:* Màn hình sẽ hiển thị thông báo hoàn tất, kèm theo đó là một file `database.db` tự động được sinh ra trong cùng thư mục dự án.
+
+### Bước 5: Kích hoạt máy chủ và thử nghiệm hệ thống
+Để khởi động hệ thống web framework (Flask), ta gọi file mã nguồn trung tâm.
+*   Chạy lệnh khởi động ứng dụng:
+    ```bash
+    python app.py
+    ```
+*   Theo cấu hình mặc định, server sẽ lắng nghe ở port `5000`. Hãy mở trình duyệt, điều hướng tới **một trong hai** liên kết sau:
+    *   [http://127.0.0.1:5000](http://127.0.0.1:5000)
+    *   [http://localhost:5000](http://localhost:5000)
+    
+👉 Tiến hành thử nghiệm bằng cách truy cập vào trang **Login** hoặc **Products** để tận mắt xem kiến trúc phản hồi của ứng dụng.
