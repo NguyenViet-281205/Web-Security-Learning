@@ -30,7 +30,7 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        query = f"SELECT * FROM users WHERE username = '{username}' AND password = {password}"
+        query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
         
         db = get_db()   
         cursor = db.cursor()
@@ -91,4 +91,5 @@ def api_check_user():
 if __name__ == '__main__':
     print("Running on http://127.0.0.1:5000")
     app.run(debug=True)
+
 
